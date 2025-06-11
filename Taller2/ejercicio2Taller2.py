@@ -13,65 +13,73 @@
 # • Mostrar un resumen con los datos del cliente
 
 
+def obtener_tasa_interes(plazo):
+    if plazo == 6:
+        return 0.015
+    elif plazo == 12:
+        return 0.013
+    else:
+        return 0.011
+
+
+def calcular_valor_total(monto_prestado, plazo, tasa):
+    interes_total = monto_prestado * tasa * plazo
+    valor_total = monto_prestado + interes_total
+    return valor_total
+
+
 def principal():
-    # Variables
-    nombre_cliente = ""
-    monto_prestado = 0
-    plazo = 0
-    valor_mensual = 0
-    valor_total = 0
-    
-    # Encabezado del programa
     print("=" * 70)
-    print("💰 SIMULADOR DE PRESTAMOS BANCARIOS".center(70))
+    print("💰 SIMULADOR DE PRÉSTAMOS BANCARIOS".center(70))
     print("=" * 70)
     print("\n")
-    
-    # Preguntar el nombre del cliente
+
+    # 1. Nombre del cliente
     while True:
         nombre_cliente = input("Nombre del cliente: ")
-        if nombre_cliente != "":
+        if nombre_cliente.strip():
             break
         else:
-            print("El nombre no puede estar vacío")
-    
-    # Preguntar el monto prestado
+            print("El nombre no puede estar vacío.")
+
+    # 2. Monto a prestar
     while True:
-        monto_prestado = int(input("Monto prestado: "))
-        if monto_prestado >= 1000000 and monto_prestado <= 50000000:
-            break
-        else:
-            print("El monto prestado debe estar entre $1,000,000 y $50,000,000")
-    
-    # Preguntar el plazo
+        try:
+            monto_prestado = int(input("Monto prestado: "))
+            if 1_000_000 <= monto_prestado <= 50_000_000:
+                break
+            else:
+                print("El monto debe estar entre $1'000,000 y $50'000,000.")
+        except ValueError:
+            print("Ingrese un número válido.")
+
+    # 3. Plazo
     while True:
-        plazo = int(input("Plazo (6, 12 o 24 meses): "))
-        if plazo == 6 or plazo == 12 or plazo == 24:
-            break
-        else:
-            print("El plazo debe ser 6, 12 o 24 meses")
-    
-    # Calcular el valor mensual a pagar
-    if plazo == 6:
-        valor_mensual = monto_prestado * 0.015
-    elif plazo == 12:
-        valor_mensual = monto_prestado * 0.013
-    else:
-        valor_mensual = monto_prestado * 0.011
-    
-    # Calcular el valor total a pagar
-    valor_total = valor_mensual * 12
-    
-    # Mostrar el resumen
-    print("=" * 70)
+        try:
+            plazo = int(input("Plazo (6, 12 o 24 meses): "))
+            if plazo in [6, 12, 24]:
+                break
+            else:
+                print("El plazo debe ser 6, 12 o 24 meses.")
+        except ValueError:
+            print("Ingrese un número válido.")
+
+    # 4. Cálculos
+    tasa = obtener_tasa_interes(plazo)
+    valor_total = calcular_valor_total(monto_prestado, plazo, tasa)
+    valor_mensual = valor_total / plazo
+
+    # 5. Mostrar resumen
+    print("\n" + "=" * 70)
     print("📊 RESUMEN".center(70))
     print("=" * 70)
     print("\n")
-    print(f"Nombre: {nombre_cliente}")
-    print(f"Monto prestado: {monto_prestado:,.0f} €")
+    print(f"Nombre del cliente: {nombre_cliente}")
+    print(f"Monto prestado: ${monto_prestado:,.0f}")
     print(f"Plazo: {plazo} meses")
-    print(f"Valor mensual a pagar: {valor_mensual:,.0f} €")
-    print(f"Valor total a pagar: {valor_total:,.0f} €")
-    
-    
+    print(f"Tasa de interés mensual: {tasa * 100:.1f}%")
+    print(f"Valor mensual a pagar: ${valor_mensual:,.0f}")
+    print(f"Valor total a pagar: ${valor_total:,.0f}")
+
+
 principal()
