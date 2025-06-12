@@ -12,7 +12,7 @@
 # • Valor total a pagar al final
 # • Mostrar un resumen con los datos del cliente
 
-
+# Obtener tasa de interés
 def obtener_tasa_interes(plazo: int) -> float:
     if plazo == 6:
         return 0.015
@@ -21,7 +21,7 @@ def obtener_tasa_interes(plazo: int) -> float:
     else:
         return 0.011
 
-
+# Calcular el valor total a pagar
 def calcular_valor_total(monto_prestado: int, plazo: int, tasa: float) -> float:
     interes_total = monto_prestado * tasa * plazo
     valor_total = monto_prestado + interes_total
@@ -75,5 +75,5 @@ def principal() -> None:
     print(f"Valor mensual a pagar: ${valor_mensual:,.0f}")
     print(f"Valor total a pagar: ${valor_total:,.0f}")
 
-
+# Ejecutar el programa
 principal()
