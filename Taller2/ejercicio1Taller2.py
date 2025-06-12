@@ -13,7 +13,7 @@
 # • Total de agua consumida
 # • Promedio de consume
 
-def calcular_pago(consumo):
+def calcular_pago(consumo: float) -> float:
     if consumo <= 15:
         return consumo * 2000
     elif consumo <= 30:
@@ -22,44 +22,44 @@ def calcular_pago(consumo):
         return consumo * 3000
 
 
-def principal():
+def principal() -> None:
     total_consumo = 0
 
-    lista_nombres = ""
-    lista_consumo = ""
-    lista_valor_a_pagar = ""
-    
-    width_1 = 70
-    width_2 = 40
-    
-    lineas_encabezado_1 = "=" * width_1
-    lineas_encabezado_2 = "=" * width_2
+    lista_nombres: str = ""
+    lista_consumo: str = ""
+    lista_valor_a_pagar: str = ""
+
+    width_1: int = 80
+    width_2: int = 40
+
+    lineas_encabezado_1: str = "=" * width_1
+    lineas_encabezado_2: str = "=" * width_2
 
     # Encabezado del programa
     print("\n" + f"{lineas_encabezado_1}")
     print("🧮 SIMULADOR DE PAGOS POR CONSUMO DE AGUA".center(width_1))
     print(f"{lineas_encabezado_1}" + "\n")
 
-    total_apartamentos = int(
+    total_apartamentos: int = int(
         input("Ingrese el número de apartamentos a evaluar: "))
 
     # Registro y cálculo por apartamento
-    for i in range(total_apartamentos):
+    for i in range(0, total_apartamentos, 1):
         print("\n" + f"{lineas_encabezado_2}")
         print(f"Apartamento N.º {i + 1}".center(width_2))
         print(f"{lineas_encabezado_2}")
 
-        nombre = input("Nombre del residente: ")
-        consumo = float(input("Consumo en metros cúbicos: "))
-        pago = calcular_pago(consumo)
+        nombre_residente: str = input("Nombre del residente: ")
+        consumo_m3: float = float(input("Consumo en metros cúbicos: "))
+        pago: float = calcular_pago(consumo_m3)
 
-        total_consumo += consumo
+        total_consumo += consumo_m3
 
-        lista_nombres += nombre + ", "
-        lista_consumo += f"{consumo:.2f}, "
+        lista_nombres += nombre_residente + ", "
+        lista_consumo += f"{consumo_m3:.2f}, "
         lista_valor_a_pagar += f"${pago:,.0f}, "
 
-    promedio = total_consumo / total_apartamentos
+    promedio: float = total_consumo / total_apartamentos
 
     # Resultados finales
     print("\n" + f"{lineas_encabezado_1}")

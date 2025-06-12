@@ -13,7 +13,7 @@
 # • Mostrar un resumen con los datos del cliente
 
 
-def obtener_tasa_interes(plazo):
+def obtener_tasa_interes(plazo: int) -> float:
     if plazo == 6:
         return 0.015
     elif plazo == 12:
@@ -22,13 +22,13 @@ def obtener_tasa_interes(plazo):
         return 0.011
 
 
-def calcular_valor_total(monto_prestado, plazo, tasa):
+def calcular_valor_total(monto_prestado: int, plazo: int, tasa: float) -> float:
     interes_total = monto_prestado * tasa * plazo
     valor_total = monto_prestado + interes_total
     return valor_total
 
 
-def principal():
+def principal() -> None:
     print("=" * 70)
     print("💰 SIMULADOR DE PRÉSTAMOS BANCARIOS".center(70))
     print("=" * 70)
@@ -36,7 +36,7 @@ def principal():
 
     # 1. Nombre del cliente
     while True:
-        nombre_cliente = input("Nombre del cliente: ")
+        nombre_cliente: str = input("Nombre del cliente: ")
         if nombre_cliente.strip():
             break
         else:
@@ -44,25 +44,19 @@ def principal():
 
     # 2. Monto a prestar
     while True:
-        try:
-            monto_prestado = int(input("Monto prestado: "))
-            if 1_000_000 <= monto_prestado <= 50_000_000:
-                break
-            else:
-                print("El monto debe estar entre $1'000,000 y $50'000,000.")
-        except ValueError:
-            print("Ingrese un número válido.")
+        monto_prestado: int = int(input("Monto prestado: "))
+        if 1000000 <= monto_prestado <= 50000000:
+            break
+        else:
+            print("El monto debe estar entre $1'000,000 y $50'000,000.")
 
     # 3. Plazo
     while True:
-        try:
-            plazo = int(input("Plazo (6, 12 o 24 meses): "))
-            if plazo in [6, 12, 24]:
-                break
-            else:
-                print("El plazo debe ser 6, 12 o 24 meses.")
-        except ValueError:
-            print("Ingrese un número válido.")
+        plazo: int = int(input("Plazo (6, 12 o 24 meses): "))
+        if plazo in [6, 12, 24]:
+            break
+        else:
+            print("El plazo debe ser 6, 12 o 24 meses.")
 
     # 4. Cálculos
     tasa = obtener_tasa_interes(plazo)
